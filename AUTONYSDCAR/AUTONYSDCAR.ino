@@ -2,8 +2,8 @@
 #include <Servo.h>
 
 // Motor Shield setup
-AF_DCMotor leftMotor(1);   // Left motor connected to M1
-AF_DCMotor rightMotor(2);  // Right motor connected to M2
+AF_DCMotor leftMotor(2);   // Left motor connected to M1
+AF_DCMotor rightMotor(1);  // Right motor connected to M2
 
 // Servo motor setup
 Servo myServo;
@@ -14,7 +14,7 @@ const int echoPin = 6;
 
 // LED pins
 const int redLED = 10;
-const int whiteLED = 11;
+
 const int blueLED = 12;
 
 void setup() {
@@ -29,7 +29,7 @@ void setup() {
   
   // Set LED pins as output
   pinMode(redLED, OUTPUT);
-  pinMode(whiteLED, OUTPUT);
+
   pinMode(blueLED, OUTPUT);
 
   // Turn on the blue LED when system starts (power on)
@@ -45,8 +45,7 @@ void loop() {
     leftMotor.run(FORWARD);
     rightMotor.run(FORWARD);
     
-    // Turn on white LED with a half-second delay
-    blinkWhiteLED(500);
+
     
     // Turn off the red LED
     digitalWrite(redLED, LOW);
@@ -60,7 +59,7 @@ void loop() {
     digitalWrite(redLED, HIGH);
     
     // Turn off the white LED
-    digitalWrite(whiteLED, LOW);
+
     
     // Scan right
     myServo.write(0);  // Move servo to 0 degrees (right)
@@ -85,11 +84,11 @@ void loop() {
     }
 
     // After turning, move straight for 5 seconds
-    delay(5000); // Continue moving straight for 5 seconds
+    //delay(5000); // Continue moving straight for 5 seconds
     moveForward(); // Resume moving forward
   }
   
-  delay(100);  // Small delay before the next loop
+ // delay(100);  // Small delay before the next loop
 }
 
 // Function to get distance from sonar sensor
@@ -113,18 +112,13 @@ void moveForward() {
 }
 
 // Function to blink white LED
-void blinkWhiteLED(int delayTime) {
-  digitalWrite(whiteLED, HIGH);  // Turn on white LED
-  delay(delayTime);              // Wait for half a second
-  digitalWrite(whiteLED, LOW);   // Turn off white LED
-  delay(delayTime);              // Wait for half a second
-}
+
 
 // Function to turn right (move only left motor forward)
 void turnRight() {
   leftMotor.run(FORWARD);
   rightMotor.run(RELEASE);  // Stop right motor to turn right
-  delay(1000);  // Adjust delay for a smooth turn
+  delay(8000);  // Adjust delay for a smooth turn
   stopMotors(); // Stop motors after turn
 }
 
@@ -132,7 +126,7 @@ void turnRight() {
 void turnLeft() {
   leftMotor.run(RELEASE);   // Stop left motor to turn left
   rightMotor.run(FORWARD);
-  delay(1000);  // Adjust delay for a smooth turn
+  delay(8000);  // Adjust delay for a smooth turn
   stopMotors(); // Stop motors after turn
 }
 
